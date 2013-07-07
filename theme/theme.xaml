@@ -1,0 +1,67 @@
+﻿<!-- SkypeAPI Demo Theme Template
+    ============
+    Change the values below to alter the appearance of the Skype SBUI application. 
+    Reference: http://msdn.microsoft.com/en-us/library/aa970773.aspx
+    
+    To use custom fonts, copy the TTF file into the theme directory and reference it in the form Value="./theme/#Font Name".
+    Windows built-in fonts can be referenced simply by setting Value="Font Name"
+    
+    -->
+    
+    <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    
+    <Style x:Key="StandardText">
+        <Setter Property="Control.FontSize" Value="32"/>
+        <Setter Property="Control.FontFamily" Value="Segoe UI"/>
+    </Style>
+
+    <Style x:Key="SmallText">
+        <Setter Property="Control.FontSize" Value="18"/>
+        <Setter Property="Control.FontFamily" Value="Segoe UI"/>
+    </Style>
+
+    <Style x:Key="ContactGrid" TargetType="DataGrid">
+        <Setter Property="Control.FontSize" Value="38"/>
+        <Setter Property="DataGrid.RowBackground">
+            <Setter.Value>    
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <GradientStop Color="#FFB0ADAD" Offset="0"/>
+                        <GradientStop Color="#FFE4E0E0" Offset="1"/>
+                    </LinearGradientBrush>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="DataGrid.AlternatingRowBackground">
+            <Setter.Value>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="#FF82ACF7" Offset="0"/>
+                    <GradientStop Color="#FFC5DAFF" Offset="0.883"/>
+                </LinearGradientBrush>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="PopupMenu" TargetType="Menu">
+        <Setter Property="Control.HorizontalAlignment" Value="Center"/>
+        <Setter Property="Control.Width" Value="200"/>
+        <Setter Property="Control.Margin" Value="30,30,30,30"/>
+        <Setter Property="Control.Background" Value="#FFD4D0C8"/>
+        <Setter Property="Control.BorderThickness" Value="4"/>
+        <Setter Property="Control.BorderBrush" Value="Black"/>
+        <Setter Property="Menu.Effect">
+            <Setter.Value>
+                    <DropShadowEffect/>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="PopupMenuItem" TargetType="MenuItem">
+        <Setter Property="Control.Margin" Value="10"/>
+        <Setter Property="Control.FontSize" Value="28"/>
+    </Style>
+
+    <Style x:Key="PopupMenuSeparator" TargetType="Separator">
+        <Setter Property="Control.Width" Value="60"/>
+    </Style>
+
+</ResourceDictionary>

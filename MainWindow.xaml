@@ -1,0 +1,108 @@
+﻿<Window x:Class="SkypeAPI2.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:local="clr-namespace:SkypeAPI2"
+        Title="Skype API Demo For SBUI" Width="790" Height="470" ResizeMode="NoResize" 
+        Closing="Window_Close">
+
+    <Window.Resources>
+
+        <!-- contact list data -->
+        <local:SkypeContactList x:Key="contactList"/>        
+        <CollectionViewSource x:Key="cvsContacts" Source="{StaticResource contactList}" Filter="CollectionViewSource_Filter"/>
+        
+        <!-- image for online/offline toggle -->
+        <DataTemplate x:Key="HeaderImage">
+            <Image Width="48" Height="48" Source="theme/online.png"/>
+        </DataTemplate>
+
+    </Window.Resources>
+
+    <Grid>
+        <TabControl>
+
+            <TabItem Header="Contact List">
+                <DockPanel LastChildFill="True">
+                    
+                    <DataGrid x:Name="dgContactList" Margin="0,0,0,0" 
+                              AutoGenerateColumns="False" IsReadOnly="True" 
+                              Style="{DynamicResource ContactGrid}"
+                              ItemsSource="{Binding Source={StaticResource cvsContacts}}"
+                              MouseUp="dataGrid1_MouseUp">
+
+                        <DataGrid.Columns>
+                            <DataGridTemplateColumn Width="SizeToHeader" HeaderTemplate="{StaticResource HeaderImage}">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Image Width="64" Height="64" Source="{Binding Path=Image}" />
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                            <DataGridTemplateColumn Width="SizeToCells">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <StackPanel>
+                                            <TextBlock Text="{Binding Path=PreferredName}" Style="{DynamicResource StandardText}"/>
+                                            <TextBlock Text="{Binding Path=Handle}" Style="{DynamicResource SmallText}"/>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                        </DataGrid.Columns>
+
+                        <DataGrid.ColumnHeaderStyle>
+                            <Style TargetType="DataGridColumnHeader">
+                                <EventSetter Event="Click" Handler="columnHeader_Click" />
+                            </Style>
+                        </DataGrid.ColumnHeaderStyle>
+
+                    </DataGrid>
+                    
+                </DockPanel>
+            </TabItem>
+
+            <TabItem Header="Search" >
+                <DockPanel LastChildFill="True">
+                    <StackPanel DockPanel.Dock="Top">
+                        <TextBox x:Name="searchText" Style="{DynamicResource StandardText}"/>
+                        <Button Content="Search" Style="{DynamicResource StandardText}" Click="Search_Click" />
+                        <TextBlock Text="Results" Style="{DynamicResource StandardText}" />
+                    </StackPanel>
+                    <ListBox x:Name="searchResult" Style="{DynamicResource StandardText}" MouseUp="SearchResult_Click" />
+                </DockPanel>
+            </TabItem>
+
+            <TabItem Header="Messages">
+                <DockPanel LastChildFill="True">
+                    <ListBox x:Name="messages" Style="{DynamicResource SmallText}" />
+                </DockPanel>
+            </TabItem>
+
+        </TabControl>
+
+        <Menu x:Name="contactMenu" Style="{DynamicResource PopupMenu}" Visibility="Hidden">
+            <Menu.ItemsPanel >
+                <ItemsPanelTemplate>
+                    <VirtualizingStackPanel Orientation="Vertical"/>
+                </ItemsPanelTemplate>
+            </Menu.ItemsPanel>
+            <MenuItem x:Name="callMenu" Header="Call" Style="{DynamicResource PopupMenuItem}" Click="Call_Click"/>
+            <MenuItem Header="Chat" Style="{DynamicResource PopupMenuItem}" Click="Chat_Click"/>
+            <Separator Style="{DynamicResource PopupMenuSeparator}"/>
+            <MenuItem Header="Cancel" Style="{DynamicResource PopupMenuItem}" Click="Cancel_Click"/>
+        </Menu>
+
+        <Menu x:Name="searchMenu" Style="{DynamicResource PopupMenu}" Visibility="Hidden">
+            <Menu.ItemsPanel >
+                <ItemsPanelTemplate>
+                    <VirtualizingStackPanel Orientation="Vertical"/>
+                </ItemsPanelTemplate>
+            </Menu.ItemsPanel>
+            <MenuItem Header="Add" Style="{DynamicResource PopupMenuItem}" Click="AddSearch_Click"/>
+            <Separator Style="{DynamicResource PopupMenuSeparator}"/>
+            <MenuItem Header="Cancel" Style="{DynamicResource PopupMenuItem}" Click="CancelSearch_Click"/>
+        </Menu>
+
+    </Grid>
+
+</Window>
